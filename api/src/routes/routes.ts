@@ -7,7 +7,7 @@ const rootPath = path.normalize(__dirname + '/../..');
 
 const router = Router();
 router.use('/api/v1/business', businessRouter);
-router.use('/api/v1/spec', express.static(apiSpecificationPath));
+router.use('/api/v1/specs', express.static(apiSpecificationPath));
 router.use(express.static(`${rootPath}/public`));
 
 export default router;

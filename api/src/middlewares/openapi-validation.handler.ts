@@ -6,7 +6,7 @@ const apiSpecificationPath = path.join(__dirname, '../docs/api.yml');
 const openApiValidationHandler = OpenApiValidator.middleware({
   apiSpec: apiSpecificationPath,
   validateResponses: true,
-  ignorePaths: /.*\/spec(\/|$)/,
+  ignorePaths: /.*\/specs(\/|$)/,
 });
 
 export { apiSpecificationPath, openApiValidationHandler };
