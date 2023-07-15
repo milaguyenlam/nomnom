@@ -9,6 +9,7 @@ export default function RestaurantName() {
 
 const styles = StyleSheet.create({
     restaurantName: {
+        flex: 1,
         fontSize: 25,
         lineHeight: 25,
         fontWeight: 'bold',
