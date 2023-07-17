@@ -11,6 +11,7 @@ export default function DistanceText() {
 const styles = StyleSheet.create({
     distanceTextWrapper: {
         flexDirection: 'row',
+        paddingHorizontal: 10,
         justifyContent: 'flex-end',
         alignItems: 'center',
         marginTop: 20,

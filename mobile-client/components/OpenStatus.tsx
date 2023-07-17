@@ -13,7 +13,7 @@ const displayAppropriateText = (isOpen: boolean) => {
 
 export default function OpenStatus() {
   return (
-    <View style={[styles.openStatusWrapper, isOpen ? { backgroundColor: 'green' } : { backgroundColor: 'red' }]}>
+    <View style={[styles.openStatusWrapper, isOpen ? { backgroundColor: '#14b077' } : { backgroundColor: 'red' }]}>
       {displayAppropriateText(isOpen)}
     </View>
   )
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
         borderRadius: 1000,
         paddingHorizontal: 22,
         paddingVertical: 10,
-        marginBottom: 5,
     },
     openStatusText: {
         color: 'white',

@@ -10,8 +10,8 @@ export default function RestaurantName() {
 const styles = StyleSheet.create({
     restaurantName: {
         flex: 1,
-        fontSize: 25,
-        lineHeight: 25,
+        fontSize: 23,
+        lineHeight: 23,
         fontWeight: 'bold',
         color: '#fff',
     }

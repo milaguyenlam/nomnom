@@ -14,6 +14,7 @@ export default function SocialMedia() {
 const styles = StyleSheet.create({
     socialMediaWrapper: {
         flexDirection: 'row',
+        paddingHorizontal: 10,
         justifyContent: 'flex-end',
         alignItems: 'center',
     },

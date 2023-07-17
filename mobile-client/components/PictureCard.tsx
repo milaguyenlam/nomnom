@@ -17,9 +17,9 @@ const styles = StyleSheet.create({
     picCardImage: {
         height: Dimensions.get('window').height * 0.6,
         justifyContent: 'space-between',
-        paddingTop: 15,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 20,
+        // paddingTop: 15,
+        // paddingLeft: 10,
+        // paddingRight: 10,
+        // paddingBottom: 20,
     },
 });

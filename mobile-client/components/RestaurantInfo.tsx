@@ -9,7 +9,7 @@ import { Octicons } from '@expo/vector-icons';
 
 export default function RestaurantInfo() {
   return (
-    <View style={{ backgroundColor: 'rgba(0,0,0,0.2)' }}>
+    <View style={styles.restaurantInfoWrapper}>
         <OpenStatus />
 
         <View style={styles.restaurantSection}>
@@ -27,6 +27,11 @@ export default function RestaurantInfo() {
 }
 
 const styles = StyleSheet.create({
+    restaurantInfoWrapper: {
+        backgroundColor: 'rgba(0,0,0,0.2)',
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+    },
     restaurantSection: {
         flexDirection: 'row',
         alignItems: 'center',

@@ -47,7 +47,7 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   tabScreen: {
     borderRadius: 1000,
-    marginVertical: 20,
+    marginBottom: 40,
     marginHorizontal: 15,
     backgroundColor: 'transparent',
     shadowColor: '#000',

@@ -15,6 +15,8 @@ export default function PictureIndicator() {
 
 const styles = StyleSheet.create({
     pictureIndicator: {
+        marginTop: 15,
+        paddingHorizontal: 10,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
