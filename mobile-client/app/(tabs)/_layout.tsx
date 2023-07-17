@@ -1,19 +1,60 @@
 import { Tabs } from 'expo-router';
+import { StyleSheet, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+
 
 export default function TabLayout() {
   return (
-    <Tabs
+    <View style={{ backgroundColor: 'white', flex: 1 }}>
+      <Tabs
         screenOptions={{ 
           headerShown: false, 
-          tabBarStyle: {
-            borderRadius: 1000,
-            marginHorizontal: 10,
-            marginVertical: 10,
-          }
-        }}
-      >
-      <Tabs.Screen name="index"/>
-      <Tabs.Screen name="two" />
-    </Tabs>
+          tabBarStyle: styles.tabScreen,
+          tabBarActiveTintColor: '#ff6b00',
+          tabBarInactiveTintColor: '#303030',
+        }}>
+        <Tabs.Screen name="two"
+          options={{
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="hearto" size={24} color={color} />
+            ),
+            tabBarLabel: '',
+          }}
+        />
+        <Tabs.Screen name="index"
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Feather name="home" size={24} color={color} />
+            ),
+            tabBarLabel: '',
+          }}
+        />
+        <Tabs.Screen 
+          name='three'
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Feather name="user" size={24} color={color} />
+            ),
+            tabBarLabel: '',
+          }}
+        />
+      </Tabs>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  tabScreen: {
+    borderRadius: 1000,
+    marginVertical: 20,
+    marginHorizontal: 15,
+    backgroundColor: 'transparent',
+    shadowColor: '#000',
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    elevation: 6,
+    borderTopWidth: 0,
+    paddingHorizontal: 60,
+  }
+});
