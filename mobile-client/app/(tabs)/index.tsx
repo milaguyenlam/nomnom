@@ -1,15 +1,16 @@
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Dimensions } from 'react-native';
 import ActionButtons from '../../components/ActionButtons';
+import DeckSwiper from '../../components/DeckSwiper';
 
 import Header from '../../components/Header';
-import PictureCard from '../../components/PictureCard';
 
 export default function TabOneScreen() {
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.homePage}>
         <Header />
-        <PictureCard />
+        <DeckSwiper />
         <ActionButtons />
       </View>
     </SafeAreaView>
