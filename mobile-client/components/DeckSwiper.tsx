@@ -35,6 +35,6 @@ export default function DeckSwiper() {
 
 const styles = StyleSheet.create({
     swiperWrapper: {
-        height: Dimensions.get('window').height * 0.6,
+      height: Dimensions.get('window').height * 0.6,
     },
 });

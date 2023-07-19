@@ -9,7 +9,7 @@ export default function ActionButtons() {
   return (
     <View style={styles.actionButtons}>
         <View style={styles.skipButton}>
-        <Entypo name="cross" size={50} color="white" />
+        <Entypo name="cross" size={35} color="white" />
         </View>
         <View style={styles.sendButton}>
         <Feather name="send" size={30} color="black" />

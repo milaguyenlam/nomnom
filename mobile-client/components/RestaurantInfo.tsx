@@ -31,6 +31,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.2)',
         paddingHorizontal: 10,
         paddingVertical: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
     },
     restaurantSection: {
         flexDirection: 'row',
