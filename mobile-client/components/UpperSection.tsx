@@ -3,11 +3,17 @@ import DistanceText from './DistanceText';
 import PictureIndicator from './PictureIndicator';
 import SocialMedia from './SocialMedia';
 
-export default function UpperSection() {
+interface Props {
+    numberOfImages: number,
+    index: number,
+    distance: number,
+}
+
+export default function UpperSection({ numberOfImages, index, distance } : Props) {
     return (
         <View>
-            <PictureIndicator />
-            <DistanceText />
+            <PictureIndicator numberOfImages={numberOfImages} index={index}/>
+            <DistanceText distance={distance}/>
             <SocialMedia />
         </View>
     );

@@ -2,13 +2,41 @@ import { StyleSheet, View, Dimensions } from 'react-native';
 
 const numberOfLines = 4;
 
-export default function PictureIndicator() {
+interface Props {
+    numberOfImages: number,
+    index: number,
+}
+
+const displayIndicators = (numberOfImages: number, index: number) => {
+    let indicators = [];
+
+    for(let i = 0; i < numberOfImages; i++) {
+        if(i === index) {
+            if(i === 0) {
+                indicators.push(<View key={i} style={[styles.line, styles.furthestLeft, styles.currentLine]}/>)
+            } else if(i === (numberOfImages - 1)) {
+                indicators.push(<View key={i} style={[styles.line, styles.furthestRight, styles.currentLine]}/>)
+            } else {
+                indicators.push(<View key={i} style={[styles.line, styles.currentLine]}/>)
+            }
+        } else {
+            if(i === 0) {
+                indicators.push(<View key={i} style={[styles.line, styles.furthestLeft]}/>)
+            } else if(i === (numberOfImages - 1)) {
+                indicators.push(<View key={i} style={[styles.line, styles.furthestRight]}/>)
+            } else {
+                indicators.push(<View key={i} style={[styles.line]}/>)
+            }
+        }
+    }
+
+    return indicators;
+}
+
+export default function PictureIndicator({ numberOfImages, index } : Props) {
     return (
         <View style={styles.pictureIndicator}>
-            <View style={[styles.line, styles.furthestLeft, styles.currentLine]}></View>
-            <View style={[styles.line]}></View>
-            <View style={[styles.line]}></View>
-            <View style={[styles.line, styles.furthestRight]}></View>
+            {displayIndicators(numberOfImages, index)}
         </View>
     );
 }
