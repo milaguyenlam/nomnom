@@ -1,12 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function PriceLevel() {
+interface Props {
+  priceLevel: number,
+}
+
+const displayPriceLevel = (priceLevel: number) => {
+  let result = [];
+  
+  for(let i = 0; i < priceLevel; i++) {
+    result.push(<Text key={i} style={styles.priceLevelSign}>$</Text>);
+  }
+
+  return result;
+} 
+
+export default function PriceLevel({ priceLevel } : Props) {
   return (
     <View style={styles.priceLevelWrapper}>
-      <Text style={styles.priceLevelSign}>$</Text>
-      <Text style={styles.priceLevelSign}>$</Text>
-      <Text style={styles.priceLevelSign}>$</Text>
+      {displayPriceLevel(priceLevel)}
     </View>
   )
 }

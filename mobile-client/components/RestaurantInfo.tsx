@@ -6,21 +6,26 @@ import InformationIcon from './InformationIcon'
 import PriceLevel from './PriceLevel'
 import RatingText from './RatingText'
 import { Octicons } from '@expo/vector-icons';
+import { DocumentData } from 'firebase/firestore'
 
-export default function RestaurantInfo() {
+interface Props {
+    eatery: DocumentData,
+}
+
+export default function RestaurantInfo({ eatery } : Props) {
   return (
     <View style={styles.restaurantInfoWrapper}>
-        <OpenStatus />
+        <OpenStatus isOpen={eatery.contact.opening_hours.open_now}/>
 
         <View style={styles.restaurantSection}>
-            <RestaurantName />
+            <RestaurantName restaurantName={eatery.name}/>
             <InformationIcon />
         </View>
 
         <View style={styles.reviewsSection}>
-            <PriceLevel />
+            <PriceLevel priceLevel={eatery.price_level}/>
             <Octicons name="dot-fill" size={8} color="white" style={styles.dot}/>
-            <RatingText />
+            <RatingText rating={eatery.rating}/>
         </View>
     </View>
   )

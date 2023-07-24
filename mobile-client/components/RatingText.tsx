@@ -1,9 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function RatingText() {
+interface Props {
+  rating: number,
+}
+
+export default function RatingText({ rating } : Props) {
   return (
-    <Text style={styles.ratingText}>4.2</Text>
+    <Text style={styles.ratingText}>{rating}</Text>
   )
 }
 

@@ -1,9 +1,13 @@
 import { StyleSheet, Text } from 'react-native'
 import React from 'react'
 
-export default function RestaurantName() {
+interface Props {
+  restaurantName: string,
+}
+
+export default function RestaurantName({ restaurantName } : Props) {
   return (
-    <Text style={styles.restaurantName}>Restaurace U Kohouta</Text>
+    <Text style={styles.restaurantName}>{restaurantName}</Text>
   )
 }
 

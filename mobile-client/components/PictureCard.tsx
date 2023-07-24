@@ -6,18 +6,17 @@ import { collection, getDocs, DocumentData } from 'firebase/firestore';
 
 interface Props {
     post: string | undefined,
-    numberOfImages: number,
     index: number,
-    distance: number,
+    eatery: DocumentData,
 }
 
-export default function PictureCard({ post, numberOfImages, index, distance } : Props) {
+export default function PictureCard({ post, index, eatery } : Props) {
     if(post === undefined) return null;
 
     return (
         <ImageBackground source={{ uri: post }} resizeMode='cover' style={styles.picCardImage} imageStyle={{ borderRadius: 10 }}>
-            <UpperSection numberOfImages={numberOfImages} index={index} distance={distance}/>
-            <RestaurantInfo />
+            <UpperSection numberOfImages={eatery.posts.length} index={index} distance={eatery.distance}/>
+            <RestaurantInfo eatery={eatery}/>
         </ImageBackground>
     );
 }

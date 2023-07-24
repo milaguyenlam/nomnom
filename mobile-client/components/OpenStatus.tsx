@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const isOpen = true;
+interface Props {
+  isOpen: boolean,
+}
 
 const displayAppropriateText = (isOpen: boolean) => {
     if(isOpen) {
@@ -11,7 +13,7 @@ const displayAppropriateText = (isOpen: boolean) => {
     return <Text style={styles.openStatusText}>closed</Text>
 }
 
-export default function OpenStatus() {
+export default function OpenStatus({ isOpen } : Props) {
   return (
     <View style={[styles.openStatusWrapper, isOpen ? { backgroundColor: '#14b077' } : { backgroundColor: 'red' }]}>
       {displayAppropriateText(isOpen)}
