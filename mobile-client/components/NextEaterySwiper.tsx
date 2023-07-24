@@ -95,7 +95,7 @@ export default function NextEaterySwiper() {
   const [currentEateryIndex, setCurrentEateryIndex] = useState<number>(0);
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ['eateries'],
-    queryFn: () => wait(1000).then(res => getEateries(2)),
+    queryFn: () => wait(1000).then(res => getEateries(5)),
     staleTime: 6 * 60 * 60 * 1000, // should be 6 hour
     refetchOnWindowFocus: false,
   });
