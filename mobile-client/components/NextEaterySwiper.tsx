@@ -49,58 +49,72 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
 const getEateries = async (numberOfEateries: number) => {
   console.log("Getting eateries from firestore.");
 
-  const position = await getDeviceLocation();
-  const deviceLatitude: number = position.coords.latitude;
-  const deviceLongitude: number = position.coords.longitude;
+  // return Promise.reject('Fail');
 
-  const q = query(collection(db, 'eateries'), limit(numberOfEateries));
-  const querySnapshot = await getDocs(q);
+  try {
+    const position = await getDeviceLocation();
+    const deviceLatitude: number = position.coords.latitude;
+    const deviceLongitude: number = position.coords.longitude;
 
-  const newData: DocumentData[] = [];
+    const q = query(collection(db, 'eateries'), limit(numberOfEateries));
+    const querySnapshot = await getDocs(q);
 
-  await Promise.all(
-    querySnapshot.docs.map(async (doc) => {
-      const data = doc.data();
+    const newData: DocumentData[] = [];
 
-      // Fetch image URLs for each post and wait for all the promises to resolve
-      const imagesFromStorage: string[] = await Promise.all(
-        data.posts.map(async ({ image_url }: { image_url: string }) => {
-          const imageUrl = await getDownloadURL(ref(storage, image_url));
-          return imageUrl;
-        })
-      );
+    await Promise.allSettled(
+      querySnapshot.docs.map(async (doc) => {
+        const data = doc.data();
 
-      const distance = calculateDistance(deviceLatitude, deviceLongitude, data.location.latitude, data.location.longitude);
+        try {
+          // Fetch image URLs for each post and wait for all the promises to resolve
+          const imagesFromStorage: string[] = await Promise.all(
+            data.posts.map(async ({ image_url }: { image_url: string }) => {
+              const imageUrl = await getDownloadURL(ref(storage, image_url));
+              return imageUrl;
+            })
+          );
 
-      newData.push({ ...data, posts: imagesFromStorage, distance: distance });
-    })
-  );
+          const distance = calculateDistance(deviceLatitude, deviceLongitude, data.location.latitude, data.location.longitude);
 
-  return newData;
-}
+          newData.push({ ...data, posts: imagesFromStorage, distance: distance });
+        } catch (error) {
+          console.error('Error fetching image URLs:', error);
+          throw new Error('Failed to fetch image URLs');
+        }
+      })
+    );
+
+    return newData;
+  } catch (error) {
+    console.error('Error fetching eateries:', error);
+    throw new Error('Failed to fetch eateries');
+  }
+};
 
 export default function NextEaterySwiper() {
   const [currentEateryIndex, setCurrentEateryIndex] = useState<number>(0);
-  const eateriesQuery = useQuery({
+  const { isLoading, isError, data, error } = useQuery({
     queryKey: ['eateries'],
     queryFn: () => wait(1000).then(res => getEateries(2)),
     staleTime: 6 * 60 * 60 * 1000, // should be 6 hour
     refetchOnWindowFocus: false,
   });
 
-  if(eateriesQuery.isLoading) return <LoadingScreen />
+  if(isLoading) return <LoadingScreen />
 
-  if(eateriesQuery.data === undefined) return null;
+  if(isError) return <Text>{JSON.stringify(error)}</Text>
+
+  if(data === undefined) return null;
 
   const numberOfEateriesValidation = (nextEateryIndex: number) => {
-    if(nextEateryIndex >= eateriesQuery.data.length) {
+    if(nextEateryIndex >= data.length) {
       setCurrentEateryIndex(nextEateryIndex - 1);
     } else {
       setCurrentEateryIndex(nextEateryIndex);
     }
   }
 
-  const eatery = eateriesQuery.data[currentEateryIndex];
+  const eatery = data[currentEateryIndex];
 
   return (
     <>
