@@ -1,13 +1,16 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
-import React, { RefObject, useState } from 'react'
+import { Dimensions, StyleSheet, Text, View, Modal } from 'react-native'
+import React, { RefObject, useEffect, useRef, useState } from 'react'
 import Swiper from 'react-native-deck-swiper'
 import { collection, DocumentData, getDocs, limit, query } from 'firebase/firestore'
 import { db, storage } from '../config/firebase'
 import { getDownloadURL, ref } from '@firebase/storage'
 import { useQuery } from '@tanstack/react-query'
+import DeckSwiper from './DeckSwiper'
+import LoadingScreen from './LoadingScreen'
+import ActionButtons from './ActionButtons'
 
 interface Props {
-  swiperRef: RefObject<Swiper<DocumentData>>,
+
 }
 
 const wait = (duration: number) => {
@@ -76,7 +79,7 @@ const getEateries = async (numberOfEateries: number) => {
   return newData;
 }
 
-export default function NextEaterySwiper({ swiperRef } : Props) {
+export default function NextEaterySwiper() {
   const [currentEateryIndex, setCurrentEateryIndex] = useState<number>(0);
   const eateriesQuery = useQuery({
     queryKey: ['eateries'],
@@ -85,42 +88,28 @@ export default function NextEaterySwiper({ swiperRef } : Props) {
     refetchOnWindowFocus: false,
   });
 
-  const onSwipedLeft = () => {
-    console.log("Current eatery index ", currentEateryIndex);
-    setCurrentEateryIndex(currentEateryIndex + 1);
-  }
-
-  if(eateriesQuery.isLoading) return <Text>Loading...</Text>
+  if(eateriesQuery.isLoading) return <LoadingScreen />
 
   if(eateriesQuery.data === undefined) return null;
 
+  const numberOfEateriesValidation = (nextEateryIndex: number) => {
+    if(nextEateryIndex >= eateriesQuery.data.length) {
+      setCurrentEateryIndex(nextEateryIndex - 1);
+    } else {
+      setCurrentEateryIndex(nextEateryIndex);
+    }
+  }
+
+  const eatery = eateriesQuery.data[currentEateryIndex];
+
   return (
-    <View style={styles.swiperWrapper}>
-      <Swiper
-        ref={swiperRef}
-        cards={eateriesQuery.data!}
-        cardIndex={currentEateryIndex}
-        renderCard={(eatery: DocumentData) => <Text>Hi</Text>}
-        backgroundColor={'transparent'}
-        onSwipedLeft={onSwipedLeft}
-        containerStyle={{
-          height: Dimensions.get('window').height * 0.6
-        }}
-        cardVerticalMargin={0}
-        cardHorizontalMargin={0}
-        cardStyle={{
-          width: '100%',
-          height: '100%',
-        }}
-        verticalSwipe={false}
-        horizontalSwipe={false}
-      />
-    </View>  
+    <>
+      <DeckSwiper eatery={eatery} currentEateryIndex={currentEateryIndex}/>
+      <ActionButtons currentEateryIndex={currentEateryIndex} numberOfEateriesValidation={numberOfEateriesValidation}/>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
-  swiperWrapper: {
-    height: Dimensions.get('window').height * 0.6,
-  },
+
 });

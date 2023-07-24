@@ -1,21 +1,29 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { RefObject } from 'react';
 
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import Swiper from 'react-native-deck-swiper';
+import { DocumentData } from 'firebase/firestore';
 
-export default function ActionButtons() {
+interface Props {
+    numberOfEateriesValidation: (nextEateryIndex: number) => void,
+    currentEateryIndex: number,
+}
+
+export default function ActionButtons({ currentEateryIndex, numberOfEateriesValidation } : Props) {
   return (
     <View style={styles.actionButtons}>
-        <View style={styles.skipButton}>
-        <Entypo name="cross" size={35} color="white" />
-        </View>
+        <TouchableOpacity style={styles.skipButton} onPress={() => numberOfEateriesValidation(currentEateryIndex + 1)}>
+            <Entypo name="cross" size={35} color="white" />
+        </TouchableOpacity>
         <View style={styles.sendButton}>
-        <Feather name="send" size={30} color="black" />
+            <Feather name="send" size={30} color="black" />
         </View>
         <View style={styles.favoriteButton}>
-        <AntDesign name="hearto" size={24} color="white" />
+            <AntDesign name="hearto" size={24} color="white" />
         </View>
     </View>
   )
