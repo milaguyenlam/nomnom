@@ -1,17 +1,12 @@
 import { Dimensions, StyleSheet, Text, View, Modal } from 'react-native'
 import React, { RefObject, useEffect, useRef, useState } from 'react'
-import Swiper from 'react-native-deck-swiper'
-import { collection, DocumentData, getDocs, limit, query } from 'firebase/firestore'
+import { collection, DocumentData, getDocs, limit, query, orderBy, startAt, endAt } from 'firebase/firestore'
 import { db, storage } from '../config/firebase'
 import { getDownloadURL, ref } from '@firebase/storage'
 import { useQuery } from '@tanstack/react-query'
 import DeckSwiper from './DeckSwiper'
 import LoadingScreen from './LoadingScreen'
 import ActionButtons from './ActionButtons'
-
-interface Props {
-
-}
 
 const wait = (duration: number) => {
   return new Promise(resolve => setTimeout(resolve, duration));
@@ -48,15 +43,13 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
 
 const getEateries = async (numberOfEateries: number) => {
   console.log("Getting eateries from firestore.");
-
-  // return Promise.reject('Fail');
-
+  
   try {
     const position = await getDeviceLocation();
     const deviceLatitude: number = position.coords.latitude;
     const deviceLongitude: number = position.coords.longitude;
 
-    const q = query(collection(db, 'eateries'), limit(numberOfEateries));
+    const q = query(collection(db, 'eateries'), limit(numberOfEateries)); // Limit just for query cost
     const querySnapshot = await getDocs(q);
 
     const newData: DocumentData[] = [];
@@ -84,7 +77,7 @@ const getEateries = async (numberOfEateries: number) => {
       })
     );
 
-    return newData;
+    return newData.sort((a, b) => a.distance - b.distance);
   } catch (error) {
     console.error('Error fetching eateries:', error);
     throw new Error('Failed to fetch eateries');
