@@ -14,6 +14,14 @@ const displayAppropriateText = (isOpen: boolean) => {
 }
 
 export default function OpenStatus({ isOpen } : Props) {
+  if(isOpen === null) {
+    return (
+      <View style={[styles.openStatusWrapper, { backgroundColor: 'lighthgrey' }]}>
+        <Text>Unknown</Text>
+      </View>
+    )
+  }
+
   return (
     <View style={[styles.openStatusWrapper, isOpen ? { backgroundColor: '#14b077' } : { backgroundColor: 'red' }]}>
       {displayAppropriateText(isOpen)}
