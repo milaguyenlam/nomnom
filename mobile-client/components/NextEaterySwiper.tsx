@@ -1,6 +1,6 @@
-import { Dimensions, StyleSheet, Text, View, Modal } from 'react-native'
-import React, { RefObject, useEffect, useRef, useState } from 'react'
-import { collection, DocumentData, getDocs, limit, query, orderBy, startAt, endAt } from 'firebase/firestore'
+import { StyleSheet, Text } from 'react-native'
+import React, { useState } from 'react'
+import { collection, DocumentData, getDocs, limit, query } from 'firebase/firestore'
 import { db, storage } from '../config/firebase'
 import { getDownloadURL, ref } from '@firebase/storage'
 import { useQuery } from '@tanstack/react-query'
@@ -107,11 +107,9 @@ export default function NextEaterySwiper() {
     }
   }
 
-  const eatery = data[currentEateryIndex];
-
   return (
     <>
-      <DeckSwiper eatery={eatery} currentEateryIndex={currentEateryIndex}/>
+      <DeckSwiper eateries={data} currentEateryIndex={currentEateryIndex} setCurrentEateryIndex={setCurrentEateryIndex}/>
       <ActionButtons currentEateryIndex={currentEateryIndex} numberOfEateriesValidation={numberOfEateriesValidation}/>
     </>
   )

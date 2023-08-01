@@ -7,44 +7,40 @@ import { DocumentData } from 'firebase/firestore';
 import PictureCard from './PictureCard';
 
 interface Props {
-  eatery: DocumentData,
+  eateries: DocumentData[],
   currentEateryIndex: number,
+  setCurrentEateryIndex: React.Dispatch<React.SetStateAction<number>>,
 }
 
-export default function DeckSwiper({ eatery, currentEateryIndex } : Props) {  
-  const [postIndex, setPostIndex] = useState<number>(0);
-
-  useEffect(() => {
-    setPostIndex(0);
-  }, [currentEateryIndex]);
-
-  const onSwiped = (direction: string, numberOfImages: number) => {    
+export default function DeckSwiper({ eateries, currentEateryIndex, setCurrentEateryIndex } : Props) {  
+  const onSwiped = (direction: string, numberOfEateries: number) => {    
     if(direction === 'right') {
-      if((postIndex - 1) < 0) {
-        setPostIndex(numberOfImages - 1);
-      } else {
-        setPostIndex(postIndex - 1);
-      }
+      // Next/favourite eatery
+      setCurrentEateryIndex(currentEateryIndex + 1);
+      console.log("Next/favourite eatery.");
+
+      // Add to favourite...
     } else {
-      if((postIndex + 1) >= numberOfImages) {
-        setPostIndex(0);
-      } else {
-        setPostIndex(postIndex + 1);
-      }
+      // Never go back
+      setCurrentEateryIndex(currentEateryIndex + 1);
+      console.log("Discard eatery.");
     }
   }
 
-  const numberOfImages: number = eatery.posts.length;
+  const numberOfEateries: number = 5;
+
+  if(currentEateryIndex >= numberOfEateries) {
+    return <Text>No more eateries...</Text>
+  }
 
   return (
         <View style={styles.swiperWrapper}>
           <Swiper
-            cards={eatery.posts}
-            cardIndex={postIndex}
-            renderCard={(post: string) => <PictureCard post={post} index={postIndex} eatery={eatery}/>}
-            onSwipedRight={() => onSwiped('right', numberOfImages)}
-            goBackToPreviousCardOnSwipeRight={true}
-            onSwipedLeft={() => onSwiped('left', numberOfImages)}
+            cards={eateries}
+            cardIndex={currentEateryIndex}
+            renderCard={(eatery: DocumentData) => <PictureCard eatery={eatery}/>}
+            onSwipedRight={() => onSwiped('right', numberOfEateries)}
+            onSwipedLeft={() => onSwiped('left', numberOfEateries)}
             backgroundColor={'transparent'}
             containerStyle={{
               height: Dimensions.get('window').height * 0.6,
@@ -58,7 +54,6 @@ export default function DeckSwiper({ eatery, currentEateryIndex } : Props) {
               zIndex: 10,
             }}
             verticalSwipe={false}
-            infinite={true}
           />
         </View>   
   )
