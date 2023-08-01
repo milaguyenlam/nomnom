@@ -4,14 +4,14 @@ const numberOfLines = 4;
 
 interface Props {
     numberOfImages: number,
-    index: number,
+    postIndex: number,
 }
 
-const displayIndicators = (numberOfImages: number, index: number) => {
+const displayIndicators = (numberOfImages: number, postIndex: number) => {
     let indicators = [];
 
     for(let i = 0; i < numberOfImages; i++) {
-        if(i === index) {
+        if(i === postIndex) {
             if(i === 0) {
                 indicators.push(<View key={i} style={[styles.line, styles.furthestLeft, styles.currentLine]}/>)
             } else if(i === (numberOfImages - 1)) {
@@ -33,10 +33,10 @@ const displayIndicators = (numberOfImages: number, index: number) => {
     return indicators;
 }
 
-export default function PictureIndicator({ numberOfImages, index } : Props) {
+export default function PictureIndicator({ numberOfImages, postIndex } : Props) {
     return (
         <View style={styles.pictureIndicator}>
-            {displayIndicators(numberOfImages, index)}
+            {displayIndicators(numberOfImages, postIndex)}
         </View>
     );
 }

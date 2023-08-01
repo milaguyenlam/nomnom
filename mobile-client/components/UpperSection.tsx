@@ -5,14 +5,14 @@ import SocialMedia from './SocialMedia';
 
 interface Props {
     numberOfImages: number,
-    index: number,
+    postIndex: number,
     distance: number,
 }
 
-export default function UpperSection({ numberOfImages, index, distance } : Props) {
+export default function UpperSection({ numberOfImages, postIndex, distance } : Props) {
     return (
         <View>
-            <PictureIndicator numberOfImages={numberOfImages} index={index}/>
+            <PictureIndicator numberOfImages={numberOfImages} postIndex={postIndex}/>
             <DistanceText distance={distance}/>
             <SocialMedia />
         </View>
