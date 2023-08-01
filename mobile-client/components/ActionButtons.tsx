@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Linking, Touchable } from 'react-native'
 import React from 'react'
 import { RefObject } from 'react';
 
@@ -8,20 +8,37 @@ import { AntDesign } from '@expo/vector-icons';
 import Swiper from 'react-native-deck-swiper';
 import { DocumentData } from 'firebase/firestore';
 
+//https://stackoverflow.com/questions/43214062/open-maps-google-maps-in-react-native
+
 interface Props {
     numberOfEateriesValidation: (nextEateryIndex: number) => void,
     currentEateryIndex: number,
+    eateryName: string,
 }
 
-export default function ActionButtons({ currentEateryIndex, numberOfEateriesValidation } : Props) {
+const openGoogleMaps = (eateryName: string) => {
+    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(eateryName)}`;
+  
+    Linking.canOpenURL(url).then((supported) => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        console.log("Google Maps is not installed.");
+      }
+    }).catch((error) => {
+      console.error("Error opening Google Maps:", error);
+    });
+  };
+
+export default function ActionButtons({ currentEateryIndex, numberOfEateriesValidation, eateryName } : Props) {
   return (
     <View style={styles.actionButtons}>
         <TouchableOpacity style={styles.skipButton} onPress={() => numberOfEateriesValidation(currentEateryIndex + 1)}>
             <Entypo name="cross" size={35} color="white" />
         </TouchableOpacity>
-        <View style={styles.sendButton}>
+        <TouchableOpacity style={styles.sendButton} onPress={() => openGoogleMaps(eateryName)}>
             <Feather name="send" size={30} color="black" />
-        </View>
+        </TouchableOpacity>
         <View style={styles.favoriteButton}>
             <AntDesign name="hearto" size={24} color="white" />
         </View>
