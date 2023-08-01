@@ -1,5 +1,5 @@
 import { StyleSheet, Text } from 'react-native'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { collection, DocumentData, getDocs, limit, query } from 'firebase/firestore'
 import { db, storage } from '../config/firebase'
 import { getDownloadURL, ref } from '@firebase/storage'
@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 import DeckSwiper from './DeckSwiper'
 import LoadingScreen from './LoadingScreen'
 import ActionButtons from './ActionButtons'
+import Swiper from 'react-native-deck-swiper'
 
 const wait = (duration: number) => {
   return new Promise(resolve => setTimeout(resolve, duration));
@@ -86,9 +87,10 @@ const getEateries = async (numberOfEateries: number) => {
 
 export default function NextEaterySwiper() {
   const [currentEateryIndex, setCurrentEateryIndex] = useState<number>(0);
+  const swiperRef = useRef<Swiper<DocumentData>>(null);
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ['eateries'],
-    queryFn: () => wait(1000).then(res => getEateries(5)),
+    queryFn: () => wait(1000).then(res => getEateries(5).catch(err => console.log(err))),
     staleTime: 6 * 60 * 60 * 1000, // should be 6 hour
     refetchOnWindowFocus: false,
   });
@@ -99,18 +101,14 @@ export default function NextEaterySwiper() {
 
   if(data === undefined) return null;
 
-  const numberOfEateriesValidation = (nextEateryIndex: number) => {
-    if(nextEateryIndex >= data.length) {
-      setCurrentEateryIndex(nextEateryIndex - 1);
-    } else {
-      setCurrentEateryIndex(nextEateryIndex);
-    }
+  if(currentEateryIndex >= data.length) {
+    return <Text>No more eateries</Text>
   }
 
   return (
     <>
-      <DeckSwiper eateries={data} currentEateryIndex={currentEateryIndex} setCurrentEateryIndex={setCurrentEateryIndex}/>
-      <ActionButtons currentEateryIndex={currentEateryIndex} numberOfEateriesValidation={numberOfEateriesValidation}/>
+      <DeckSwiper eateries={data} currentEateryIndex={currentEateryIndex} setCurrentEateryIndex={setCurrentEateryIndex} swiperRef={swiperRef}/>
+      <ActionButtons swiperRef={swiperRef} eateryName={data[currentEateryIndex].name}/>
     </>
   )
 }

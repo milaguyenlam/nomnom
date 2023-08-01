@@ -11,9 +11,8 @@ import { DocumentData } from 'firebase/firestore';
 //https://stackoverflow.com/questions/43214062/open-maps-google-maps-in-react-native
 
 interface Props {
-    numberOfEateriesValidation: (nextEateryIndex: number) => void,
-    currentEateryIndex: number,
-    eateryName: string,
+  swiperRef: React.RefObject<Swiper<DocumentData>>,
+  eateryName: string,
 }
 
 const openGoogleMaps = (eateryName: string) => {
@@ -30,18 +29,18 @@ const openGoogleMaps = (eateryName: string) => {
     });
   };
 
-export default function ActionButtons({ currentEateryIndex, numberOfEateriesValidation, eateryName } : Props) {
+export default function ActionButtons({ swiperRef, eateryName } : Props) {
   return (
     <View style={styles.actionButtons}>
-        <TouchableOpacity style={styles.skipButton} onPress={() => numberOfEateriesValidation(currentEateryIndex + 1)}>
+        <TouchableOpacity style={styles.skipButton} onPress={() => swiperRef.current?.swipeLeft()}>
             <Entypo name="cross" size={35} color="white" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.sendButton} onPress={() => openGoogleMaps(eateryName)}>
             <Feather name="send" size={30} color="black" />
         </TouchableOpacity>
-        <View style={styles.favoriteButton}>
+        <TouchableOpacity style={styles.favoriteButton} onPress={() => swiperRef.current?.swipeRight()}>
             <AntDesign name="hearto" size={24} color="white" />
-        </View>
+        </TouchableOpacity>
     </View>
   )
 }

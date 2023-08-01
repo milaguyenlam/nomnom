@@ -10,9 +10,10 @@ interface Props {
   eateries: DocumentData[],
   currentEateryIndex: number,
   setCurrentEateryIndex: React.Dispatch<React.SetStateAction<number>>,
+  swiperRef: React.RefObject<Swiper<DocumentData>>,
 }
 
-export default function DeckSwiper({ eateries, currentEateryIndex, setCurrentEateryIndex } : Props) {  
+export default function DeckSwiper({ eateries, currentEateryIndex, setCurrentEateryIndex, swiperRef } : Props) {  
   const onSwiped = (direction: string, numberOfEateries: number) => {    
     if(direction === 'right') {
       // Next/favourite eatery
@@ -29,13 +30,10 @@ export default function DeckSwiper({ eateries, currentEateryIndex, setCurrentEat
 
   const numberOfEateries: number = 5;
 
-  if(currentEateryIndex >= numberOfEateries) {
-    return <Text>No more eateries...</Text>
-  }
-
   return (
         <View style={styles.swiperWrapper}>
           <Swiper
+            ref={swiperRef}
             cards={eateries}
             cardIndex={currentEateryIndex}
             renderCard={(eatery: DocumentData) => <PictureCard eatery={eatery}/>}
