@@ -1,6 +1,5 @@
-import { StyleSheet, TouchableOpacity, View, Linking, Touchable } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Linking } from 'react-native'
 import React from 'react'
-import { RefObject } from 'react';
 
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';

@@ -1,8 +1,7 @@
-import { StyleSheet, ImageBackground, Dimensions, View, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, ImageBackground, Dimensions, View, TouchableWithoutFeedback } from 'react-native';
 import RestaurantInfo from './RestaurantInfo';
 import UpperSection from './UpperSection';
-import { app, db } from '../config/firebase';
-import { collection, getDocs, DocumentData } from 'firebase/firestore';
+import { DocumentData } from 'firebase/firestore';
 import { useState } from 'react';
 
 interface Props {

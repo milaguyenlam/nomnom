@@ -1,7 +1,4 @@
-import { StyleSheet, View, SafeAreaView, Dimensions } from 'react-native';
-import { RefObject, useRef, useState } from 'react';
-import ActionButtons from '../../components/ActionButtons';
-import DeckSwiper from '../../components/DeckSwiper';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 
 import Header from '../../components/Header';
 import NextEaterySwiper from '../../components/NextEaterySwiper';

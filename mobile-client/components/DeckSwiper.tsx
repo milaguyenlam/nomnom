@@ -1,6 +1,5 @@
-import { StyleSheet, View, Text, Dimensions } from 'react-native'
-import React, { RefObject } from 'react'
-import { useState, useEffect, useRef } from 'react';
+import { StyleSheet, View, Dimensions } from 'react-native'
+import React from 'react'
 import Swiper from 'react-native-deck-swiper';
 import { DocumentData } from 'firebase/firestore';
 
