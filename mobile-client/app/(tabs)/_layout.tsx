@@ -14,7 +14,7 @@ export default function TabLayout() {
           tabBarActiveTintColor: '#ff6b00',
           tabBarInactiveTintColor: '#303030',
         }}>
-        <Tabs.Screen name="two"
+        <Tabs.Screen name="favourite"
           options={{
             tabBarIcon: ({ color }) => (
               <AntDesign name="hearto" size={24} color={color} />
@@ -31,7 +31,7 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen 
-          name='three'
+          name='profile'
           options={{
             tabBarIcon: ({ color }) => (
               <Feather name="user" size={24} color={color} />

@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
 
-export default function TabThreeScreen() {
+export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab three</Text>

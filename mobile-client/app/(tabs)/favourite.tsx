@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
 
-export default function TabTwoScreen() {
+export default function FavouriteScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab Two</Text>

@@ -6,7 +6,7 @@ import DeckSwiper from '../../components/DeckSwiper';
 import Header from '../../components/Header';
 import NextEaterySwiper from '../../components/NextEaterySwiper';
 
-export default function TabOneScreen() {
+export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.homePage}>
