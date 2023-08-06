@@ -7,8 +7,6 @@ import { AntDesign } from '@expo/vector-icons';
 import Swiper from 'react-native-deck-swiper';
 import { DocumentData } from 'firebase/firestore';
 
-//https://stackoverflow.com/questions/43214062/open-maps-google-maps-in-react-native
-
 interface Props {
   swiperRef: React.RefObject<Swiper<DocumentData>>,
   eateryName: string,
