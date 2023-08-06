@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
+import colorConstants from '../../constants/Colors';
 
 export default function TabLayout() {
   return (
@@ -11,8 +12,8 @@ export default function TabLayout() {
         screenOptions={{ 
           headerShown: false, 
           tabBarStyle: styles.tabScreen,
-          tabBarActiveTintColor: '#ff6b00',
-          tabBarInactiveTintColor: '#303030',
+          tabBarActiveTintColor: colorConstants.mainOrange,
+          tabBarInactiveTintColor: colorConstants.shadowBlack,
         }}>
         <Tabs.Screen name="favourite"
           options={{

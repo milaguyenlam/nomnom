@@ -1,6 +1,8 @@
 import { StyleSheet, TouchableOpacity, View, Linking } from 'react-native'
 import React from 'react'
 
+import colorConstants from '../constants/Colors';
+
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
         width: 55,
         height: 55,
         borderRadius: 1000,
-        backgroundColor: '#303030',
+        backgroundColor: colorConstants.shadowBlack,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
         width: 55,
         height: 55,
         borderRadius: 1000,
-        backgroundColor: '#ff6b00',
+        backgroundColor: colorConstants.mainOrange,
         justifyContent: 'center',
         alignItems: 'center',
     },

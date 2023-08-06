@@ -1,6 +1,8 @@
 import { StyleSheet, View, Text } from 'react-native';
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 
+import colorConstants from '../constants/Colors';
+
 export default function Header() {
     return (
       <View style={styles.header}>
@@ -25,13 +27,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     headerTitleIcon: {
-        color: '#f95a00',
+        color: colorConstants.headerOrange,
         paddingRight: 7.5,
     },
     headerTitle: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#f95a00',
+        color: colorConstants.headerOrange,
     },
     headerAdjustmentIcon: {
         padding: 10,
