@@ -1,7 +1,7 @@
 import { StyleSheet, Text } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { collection, DocumentData, getDocs, limit, query } from 'firebase/firestore'
-import { db, storage } from '../config/firebase'
+import { db, storage } from '../config/config'
 import { getDownloadURL, ref } from '@firebase/storage'
 import { useQuery } from '@tanstack/react-query'
 import DeckSwiper from './DeckSwiper'

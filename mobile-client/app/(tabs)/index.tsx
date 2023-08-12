@@ -9,7 +9,7 @@ import DeckSwiper from '../../components/DeckSwiper';
 
 import Header from '../../components/Header';
 import LoadingScreen from '../../components/LoadingScreen';
-import { db, storage } from '../../config/firebase';
+import { db, storage } from '../../config/config';
 
 const wait = (duration: number) => {
   return new Promise(resolve => setTimeout(resolve, duration));
