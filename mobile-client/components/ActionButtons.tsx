@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
         marginVertical: 25,
         justifyContent: 'space-evenly',
         alignItems: 'center',
+        zIndex: 10,
     },
     skipButton: {
         width: 55,

@@ -1,8 +1,9 @@
-import { StyleSheet, ImageBackground, Dimensions, View, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, ImageBackground, Dimensions, View, ScrollView, Text, TouchableWithoutFeedback, Pressable } from 'react-native';
 import RestaurantInfo from './RestaurantInfo';
 import UpperSection from './UpperSection';
 import { DocumentData } from 'firebase/firestore';
 import { useState } from 'react';
+import EateryDetails from './EateryDetails';
 
 interface Props {
     eatery: DocumentData,
@@ -10,6 +11,7 @@ interface Props {
 
 export default function PictureCard({ eatery } : Props) {
     const [postIndex, setPostIndex] = useState<number>(0);
+    const [showDetails, setShowDetails] = useState<boolean>(false);
 
     const displayPost = (direction: string, numberOfPosts: number) => {
         if(direction === 'left') {
@@ -30,16 +32,21 @@ export default function PictureCard({ eatery } : Props) {
     const numberOfPosts: number = eatery.posts.length;
 
     return (
-        <ImageBackground source={{ uri: eatery.posts[postIndex] }} resizeMode='cover' style={styles.picCardImage} imageStyle={{ borderRadius: 10 }}>
-            <TouchableWithoutFeedback onPress={() => displayPost('left', numberOfPosts)}>
-                <View style={styles.touchableLeftArea}></View>
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={() => displayPost('right', numberOfPosts)}>
-                <View style={styles.touchableRightArea}></View>
-            </TouchableWithoutFeedback>
-            <UpperSection numberOfImages={eatery.posts.length} postIndex={postIndex} distance={eatery.distance}/>
-            <RestaurantInfo eatery={eatery}/>
-        </ImageBackground>
+        <ScrollView>
+            <ImageBackground source={{ uri: eatery.posts[postIndex] }} resizeMode='cover' style={styles.picCardImage} imageStyle={{ borderRadius: 10 }}>
+                <TouchableWithoutFeedback onPress={() => displayPost('left', numberOfPosts)}>
+                    <View style={styles.touchableLeftArea}></View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => displayPost('right', numberOfPosts)}>
+                    <View style={styles.touchableRightArea}></View>
+                </TouchableWithoutFeedback>
+                <UpperSection numberOfImages={eatery.posts.length} postIndex={postIndex} distance={eatery.distance}/>
+                <Pressable onPress={() => setShowDetails(!showDetails)}>
+                    <RestaurantInfo eatery={eatery}/>
+                </Pressable>
+            </ImageBackground>
+            {showDetails && <EateryDetails eatery={eatery}/>}
+        </ScrollView>
     );
 }
 
