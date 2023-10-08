@@ -14,6 +14,53 @@ import DeckSwiper from "./DeckSwiper";
 import LoadingScreen from "./LoadingScreen";
 import ActionButtons from "./ActionButtons";
 import Swiper from "react-native-deck-swiper";
+import * as Location from "expo-location";
+
+export default async function NextEaterySwiper() {
+  const [currentEateryIndex, setCurrentEateryIndex] = useState<number>(0);
+  const swiperRef = useRef<Swiper<DocumentData>>(null);
+  const [status, requestPermission] = Location.useForegroundPermissions();
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ["eateries"],
+    queryFn: () =>
+      wait(1000).then((res) => getEateries(5).catch((err) => console.log(err))),
+    staleTime: 6 * 60 * 60 * 1000, // should be 6 hour
+    refetchOnWindowFocus: false,
+    enabled: status?.granted,
+  });
+
+  if (!status?.granted) {
+    await requestPermission();
+  }
+
+  if (isLoading) return <LoadingScreen />;
+
+  //TODO: create and return an error screen
+  if (isError) return <Text>{JSON.stringify(error)}</Text>;
+
+  if (data === undefined) return null;
+
+  if (currentEateryIndex >= data.length) {
+    return <Text>No more eateries</Text>;
+  }
+
+  return (
+    <>
+      <DeckSwiper
+        eateries={data}
+        currentEateryIndex={currentEateryIndex}
+        setCurrentEateryIndex={setCurrentEateryIndex}
+        swiperRef={swiperRef}
+      />
+      <ActionButtons
+        swiperRef={swiperRef}
+        eateryName={data[currentEateryIndex].name}
+      />
+    </>
+  );
+}
+
+const styles = StyleSheet.create({});
 
 const wait = (duration: number) => {
   return new Promise((resolve) => setTimeout(resolve, duration));
@@ -109,42 +156,3 @@ const getEateries = async (numberOfEateries: number) => {
     throw new Error("Failed to fetch eateries");
   }
 };
-
-export default function NextEaterySwiper() {
-  const [currentEateryIndex, setCurrentEateryIndex] = useState<number>(0);
-  const swiperRef = useRef<Swiper<DocumentData>>(null);
-  const { isLoading, isError, data, error } = useQuery({
-    queryKey: ["eateries"],
-    queryFn: () =>
-      wait(1000).then((res) => getEateries(5).catch((err) => console.log(err))),
-    staleTime: 6 * 60 * 60 * 1000, // should be 6 hour
-    refetchOnWindowFocus: false,
-  });
-
-  if (isLoading) return <LoadingScreen />;
-
-  if (isError) return <Text>{JSON.stringify(error)}</Text>;
-
-  if (data === undefined) return null;
-
-  if (currentEateryIndex >= data.length) {
-    return <Text>No more eateries</Text>;
-  }
-
-  return (
-    <>
-      <DeckSwiper
-        eateries={data}
-        currentEateryIndex={currentEateryIndex}
-        setCurrentEateryIndex={setCurrentEateryIndex}
-        swiperRef={swiperRef}
-      />
-      <ActionButtons
-        swiperRef={swiperRef}
-        eateryName={data[currentEateryIndex].name}
-      />
-    </>
-  );
-}
-
-const styles = StyleSheet.create({});

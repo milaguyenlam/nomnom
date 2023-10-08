@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "expo-location": "^16.3.0",
+    "react-native-permissions": "^3.9.3"
+  }
+}
