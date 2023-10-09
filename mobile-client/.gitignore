@@ -77,7 +77,11 @@ web-build/
 dist/
 
 # @end expo-cli
-
 .env
-.production.env
-.development.env
+
+# Firebase
+GoogleService-Info.plist
+google-services.json
+
+#
+eas.json
