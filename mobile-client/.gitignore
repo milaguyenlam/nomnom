@@ -43,9 +43,11 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+ios/
 
 # Android/IntelliJ
 #
+android/
 build/
 .idea
 .gradle
@@ -83,5 +85,5 @@ dist/
 GoogleService-Info.plist
 google-services.json
 
-#
+# Config
 eas.json

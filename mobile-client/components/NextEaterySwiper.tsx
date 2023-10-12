@@ -8,7 +8,7 @@ import {
   query,
 } from "firebase/firestore";
 import { firestore, firebaseStorage } from "../config/firebase";
-import { getDownloadURL, ref } from "@firebase/storage";
+import { getDownloadURL, ref } from "firebase/storage";
 import { useQuery } from "@tanstack/react-query";
 import DeckSwiper from "./DeckSwiper";
 import LoadingScreen from "./LoadingScreen";

@@ -14,8 +14,6 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@firebase/storage": "^0.11.2",
-    "@react-native-firebase/app": "^18.2.0",
-    "@react-native-firebase/firestore": "^18.2.0",
     "@react-navigation/native": "^6.0.2",
     "@tanstack/react-query": "^4.32.0",
     "expo": "^49.0.13",
